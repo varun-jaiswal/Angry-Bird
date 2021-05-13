@@ -3,7 +3,7 @@ const World= Matter.World;
 const Bodies = Matter.Bodies;
 
 var engine, world;
-var box1, pig1 , bgImg , log6 ,  chain , ground2
+var box1, pig1 , bgImg ,  ground2 , slingShot
 
 function preload (){
 bgImg = loadImage ("sprites/bg.png")
@@ -16,13 +16,13 @@ function setup(){
 
     
     ground = new Ground(600,height,1200,20)
-    ground2 = new Ground(150,300,320,250)
+    ground2 = new Ground(150,300,300,170)
 
     box1 = new Box(700,320,70,70);
     box2 = new Box(920,320,70,70);
     pig1 = new Pig(810, 350);
     log1 = new Log(810,260,300, PI/2);
-    log6 = new Log (100,50,100,PI/2)
+    
 
     box3 = new Box(700,240,70,70);
     box4 = new Box(920,240,70,70);
@@ -36,7 +36,12 @@ function setup(){
 
     bird = new Bird(100,100);
 
-    chain = new Chain(bird.body,log6.body)
+    var pointB = {
+        x : 200 , 
+        y : 50 ,
+    }    
+    slingShot = new SlingShot(bird.body,pointB)
+
 
 }
     
@@ -50,7 +55,6 @@ function draw(){
     ground2.display();
     pig1.display();
     log1.display();
-    log6.display();
 
     box3.display();
     box4.display();
@@ -60,6 +64,18 @@ function draw(){
     box5.display();
     log4.display();
     log5.display();
-    chain.display();
+    slingShot.display();
 
     bird.display();}
+
+function mouseDragged() {
+    console.log("bird is dragged")
+    Matter.Body.setPosition(bird.body,{
+        x : mouseX , 
+        y : mouseY  })
+}
+
+function mouseReleased () {
+    console.log("bird is released")
+    slingShot.fly()
+}
