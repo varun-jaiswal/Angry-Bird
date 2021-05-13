@@ -42,6 +42,18 @@ function setup(){
     }    
     slingShot = new SlingShot(bird.body,pointB)
 
+    var list = [
+        1,2,3,4
+    ]
+    console.log(list[0])//printing first element of list 
+    console.log(list[1])
+
+    var complicatedList = [
+        [1,2],
+        [3,4],
+    ]
+    console.log(complicatedList[0])//will print [1,2]
+
 
 }
     
@@ -79,3 +91,10 @@ function mouseReleased () {
     console.log("bird is released")
     slingShot.fly()
 }
+function keyPressed()  {
+    if(keyCode===32)  {
+      slingShot.attach()
+  
+    }
+  
+  }
