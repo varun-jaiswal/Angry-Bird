@@ -3,13 +3,15 @@ const World= Matter.World;
 const Bodies = Matter.Bodies;
 
 var engine, world;
-var box1, pig1 , bgImg ,  ground2 , slingShot
+var box1, pig1 , bgImg ,  ground2 , slingShot , bgImg2 , bgFinal
 var gameState 
 var onsling = 1
 var notOnSling =2
+var timeAPI = "http://worldtimeapi.org/api/timezone/Asia/Kolkata"
 
 function preload (){
 bgImg = loadImage ("sprites/bg.png")
+bgImg2 = loadImage ("sprites/bg2.jpg")
 }
 
 function setup(){
@@ -58,13 +60,18 @@ function setup(){
         [3,4],
     ]
     console.log(complicatedList[0])//will print [1,2]
+    getTime()
 
 
 }
     
 
 function draw(){
-    background(bgImg);
+    if(bgFinal!=null){
+    background(bgFinal);
+    }else{
+        background(bg2Img)
+    }
     Engine.update(engine);
     box1.display();
     box2.display();
@@ -115,3 +122,20 @@ function keyPressed()  {
     }
   
   }
+
+ async function getTime(){
+      var timeResponse = await fetch (timeAPI)
+      console.log(timeResponse)
+      var timeResponseJSON = await timeResponse.json()
+      console.log(timeResponseJSON.datetime)
+      var hour = timeResponseJSON.datetime.slice(11,13)
+      console.log(hour)
+      if(hour<18){
+     bgFinal=bgImg2
+     }else{
+        bgFinal=bgImg
+    }
+
+  }
+
+  
