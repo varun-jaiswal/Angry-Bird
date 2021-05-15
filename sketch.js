@@ -4,6 +4,9 @@ const Bodies = Matter.Bodies;
 
 var engine, world;
 var box1, pig1 , bgImg ,  ground2 , slingShot
+var gameState 
+var onsling = 1
+var notOnSling =2
 
 function preload (){
 bgImg = loadImage ("sprites/bg.png")
@@ -35,6 +38,8 @@ function setup(){
     log5 = new Log(870,120,150, -PI/7);
 
     bird = new Bird(100,100);
+
+    gameState = onsling 
 
     var pointB = {
         x : 200 , 
@@ -81,19 +86,31 @@ function draw(){
     bird.display();}
 
 function mouseDragged() {
-    console.log("bird is dragged")
-    Matter.Body.setPosition(bird.body,{
-        x : mouseX , 
-        y : mouseY  })
+    //console.log("bird is dragged")
+        if(gameState === onsling){
+            Matter.Body.setPosition(bird.body,{
+                x : mouseX , 
+                y : mouseY  })
+        }
 }
 
 function mouseReleased () {
     console.log("bird is released")
     slingShot.fly()
-}
+    gameState=notOnSling
+ }
+
 function keyPressed()  {
     if(keyCode===32)  {
       slingShot.attach()
+      Matter.Body.setPosition(bird.body,{
+          x :  200 ,
+          y : 50 ,
+      })
+      gameState=onsling
+      bird.clearSmoke()
+      Matter.Body.setAngle(bird.body,0)
+      Matter.Body.setAngle(bird.body,0) 
   
     }
   

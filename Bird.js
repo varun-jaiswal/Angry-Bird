@@ -21,5 +21,15 @@ class Bird extends BaseBox {
         image(this.images,item[0],item[1],8,8 )
 
       }
-      }}
+      }
+    
+       clearSmoke (){
+        
+        this.trajectory=[]
+
+      }
+
+    }
+
+      
   
